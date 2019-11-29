@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+
+// App Routes
+import Routes from "./routes";
+
+// Stylesheets
+import "./styles/css/index.css";
+import "antd/dist/antd.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// Http Interceptor
+import "./http.interceptor";
 
 function App() {
+  /* global PUBLIC_URL */
+  const basename =
+    process.env.NODE_ENV === "development" ? "/" : PUBLIC_URL || "/";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter basename={basename}>
+      <Routes />
+    </BrowserRouter>
   );
 }
 

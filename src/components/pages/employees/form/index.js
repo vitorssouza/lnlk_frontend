@@ -1,0 +1,172 @@
+import React, { Component } from "react";
+
+import { Row, Col, Form, Label, Input, FormGroup, Button } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+import axios from "axios";
+import { notification } from "antd";
+
+// Module Imports
+import { API_BASE_URL } from "../../../../app-constants";
+
+export default class FormEmployees extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      departmentId: 0,
+      departments: []
+    };
+  }
+
+  componentDidMount() {
+    this.init();
+  }
+
+  init = async () => {
+    const { id } = this.props.match.params;
+    await this.getDepartments();
+
+    if (id) {
+      this.getEmployeeData(id);
+    }
+  };
+
+  getDepartments = async () => {
+    const { data: departments } = await axios.get(
+      `${API_BASE_URL}/departments`
+    );
+
+    this.setState({
+      ...this.state,
+      departments,
+      departmentId: departments[0].id
+    });
+  };
+
+  getEmployeeData = async id => {
+    const { data } = await axios.get(`${API_BASE_URL}/employees/${id}`);
+    this.setState({ ...this.state, ...data });
+  };
+
+  openNotification = (type, message, description) => {
+    notification[type]({
+      message,
+      description
+    });
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  };
+
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const { id } = this.props.match.params;
+
+    const dataSave = this.state;
+
+    dataSave.departmentId = Number(dataSave.departmentId);
+    delete dataSave.department;
+    delete dataSave.departments;
+
+    if (id) {
+      const { data } = axios.patch(`${API_BASE_URL}/employees/${id}`, dataSave);
+    } else {
+      const { data } = axios.post(`${API_BASE_URL}/employees`, dataSave);
+    }
+
+    if (id) {
+      this.openNotification(
+        "success",
+        "Registro Atualizado",
+        "Registro atualizado com sucesso."
+      );
+    } else {
+      this.openNotification(
+        "success",
+        "Registro Inserido",
+        "Registro Inserido com sucesso."
+      );
+    }
+
+    this.props.history.push("/employees");
+  };
+
+  render() {
+    const { departments } = this.state;
+    return (
+      <Col md={12}>
+        <Row>
+          <Col md={12}>
+            <Form onSubmit={this.handleSubmit}>
+              <Row>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label htmlFor="name"> Nome </Label>
+                    <Input
+                      type={"text"}
+                      id={"name"}
+                      name={"name"}
+                      onChange={this.handleChange}
+                      value={this.state.name}
+                      required
+                    />
+                  </FormGroup>
+                </Col>
+
+                <Col md={6}>
+                  <FormGroup>
+                    <Label htmlFor="departmentId"> Departamento </Label>
+                    <select
+                      id={"departmentId"}
+                      name={"departmentId"}
+                      className={"form-control"}
+                      onChange={this.handleChange}
+                      value={this.state.departmentId}
+                      required
+                    >
+                      {departments.map(dept => {
+                        return (
+                          <option key={dept.id} value={dept.id}>
+                            {dept.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <Button
+                    color={"primary"}
+                    className={"btn-sm float-right mb-3"}
+                    type={"submit"}
+                  >
+                    <FontAwesomeIcon icon={faSave} /> Salvar
+                  </Button>
+
+                  <Button
+                    color={"danger"}
+                    className={"btn-sm float-right mb-3 mr-3"}
+                    onClick={this.props.history.goBack}
+                  >
+                    <FontAwesomeIcon icon={faArrowLeft} /> Cancelar
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      </Col>
+    );
+  }
+}

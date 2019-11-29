@@ -1,0 +1,28 @@
+.wd-xl {
+  width: 350px;
+}
+
+.block-center {
+  margin: 0 auto;
+}
+
+.login-title {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.login-form form {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,116 @@
+.bg-ligth-gray {
+  background: var(--color-light-gray) !important;
+}
+
+.bg-dark {
+  background: var(--color-dark-blue) !important;
+  border-color: var(--color-dark-blue) !important;
+}
+
+.btn-primary {
+  background: var(--color-dark-blue) !important;
+  border-color: var(--color-dark-blue) !important;
+}
+
+.btn-primary:hover {
+  background: var(--color-light-blue) !important;
+  border-color: var(--color-light-blue) !important;
+}
+
+.ant-btn-primary {
+  color: var(--color-white) !important;
+  background: var(--color-dark-blue) !important;
+  border-color: var(--color-dark-blue) !important;
+}
+
+.ant-btn-primary:hover {
+  color: var(--color-white) !important;
+  background: var(--color-light-blue) !important;
+  border-color: var(--color-light-blue) !important;
+}
+
+.ant-layout {
+  background: var(--color-light-gray) !important;
+}
+
+.ant-layout-footer {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background: var(--color-dark) !important;
+  color: var(--color-white) !important;
+}
+
+.navbar {
+  background: var(--color-dark-blue) !important;
+}
+
+.navbar > li {
+  list-style-type: none;
+}
+
+.navbar > li > .active {
+  background: var(--color-white);
+}
+
+.navbar > li > a {
+  color: var(--color-white);
+}
+
+.navbar > li .active > a {
+  background: var(--color-white);
+}
+
+.navbar > li:hover {
+  opacity: 0.5;
+}
+
+.card {
+  margin-bottom: 1.25rem;
+}
+
+.card-default {
+  border-top-width: 3px;
+  border-color: #cfdbe2;
+}
+
+.card {
+  margin: 40px;
+  border-color: transparent;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.center-vertically {
+  vertical-align: middle;
+}
+
+.codeIconsTd {
+  width: 10%;
+}
+
+footer {
+  background: var(--color-dark-blue) !important;
+  color: var(--color-white) !important;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  min-height: 55px;
+}
+
+footer > p {
+  padding: 10px;
+}
+
+/*# sourceMappingURL=app.css.map */
